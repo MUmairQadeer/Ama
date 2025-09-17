@@ -14,16 +14,16 @@ function Navbar() {
             <div className='container mx-auto flex  flex-col md:flex-row justify-between items-center'>
 
                 <a className='text-xl font-bold md-4 md:mb-0 '
-                href="">Mystry Message</a>
+                    href="">Mystry Message</a>
                 {session ? (<><span className='mr-4'> Welcome, {user?.username || user?.email}</span>
                     <Button className='w-full md:w-auto' onClick={() => signOut()}>
                         Logout
                     </Button>
                 </>
-                ) : (
+                ) : (<Button asChild className='w-full md:w-auto bg-white text-black hover:bg-gray-100 pointer' >
                     <Link href={'/sign-in'}>
-                        <Button className='w-full md:w-auto bg-white text-black hover:bg-gray-100 pointer' >Login</Button>
-                    </Link>
+                        Login
+                    </Link></Button>
                 )}
             </div>
         </nav>

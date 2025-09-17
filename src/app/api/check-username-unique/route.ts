@@ -15,6 +15,7 @@ export async function GET(request:Request){
     await dbConnect();
 
     try {
+        
         const {searchParams} =new URL(request.url)
        const queryParams ={
         username:searchParams.get("username")
@@ -23,7 +24,7 @@ export async function GET(request:Request){
         //vlidate with zod
 
         const result =UsernameQuerySchema.safeParse(queryParams)
-
+        
         
          message = result?.error?.errors?.[0]?.message || "Invalid input"
         if(!result.success){
@@ -53,7 +54,7 @@ export async function GET(request:Request){
             return Response.json({
                 success:true,
                 message:'Username is unique'
-            } ,{status:400})
+            } ,{status:200})
         }
     } catch (error) {
         console.error("Error checking username",error)

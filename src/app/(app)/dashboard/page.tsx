@@ -20,7 +20,9 @@ export default function Page() {
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
 
 
-  const handleDeleteMessage = async (messageId: string) => {  
+  const handleDeleteMessage = async (messageId: string) => { 
+    
+    await axios.delete<ApiResponse>(`/api/delete-message?messageid=${messageId}`)
     setMessages(messages.filter((message) => message._id !== messageId));
 }
     const {data :session} =useSession()

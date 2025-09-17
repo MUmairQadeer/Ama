@@ -23,7 +23,7 @@ export default function VerifyAccount() {
 	})
 
 	const onSubmit = async (data: z.infer<typeof verifySchema>) => {
-		console.log("test tesdt test ",params.username,data.code)
+		// console.log("test tesdt test ",params.username,data.code)
 		try {
 			const response = await axios.post(`/api/verify-code`, {
 				username: params.username,

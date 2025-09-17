@@ -44,6 +44,7 @@ export default function Page() {
           const response
             = await axios.get(`/api/check-username-unique?username=${username}`)
           setUsernameMessage(response.data.message)
+          // console.log(response.data.message,"gdgb rth  tynbt y")
           setIsCheckingUsername(false)
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
