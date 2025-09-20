@@ -21,7 +21,7 @@ export async function sendVerificationEmail(
         });
         return {
             success: true,
-            message: "  Verification email send successfully 012",
+            message: "  Verification email send successfully ",
         }
 
     } catch (emailError) {

@@ -3,12 +3,13 @@ import UserModel from "@/model/User";
 
 
 export async function POST(request: Request) {
+    let shareOpt;
     await dbConnect();
 
     try {
 
         const { username ,code} =await request.json();
-        console.log(username ,code)
+        // console.log(username ,code)
         const decodedUsername =decodeURIComponent(username)
         const user =await UserModel.findOne({username:decodedUsername});
         if (!user) {
@@ -20,8 +21,8 @@ export async function POST(request: Request) {
             })
         }  
         const isCodeValid =user.verifyCode === code
-        const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date()
-
+        const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date();
+        shareOpt=user.verifyCode
         if (isCodeValid && isCodeNotExpired) {
             user.isVerified = true;
             await user.save();
@@ -39,11 +40,12 @@ export async function POST(request: Request) {
                 status: 400
             })
         }
-     
+        
         else{
             return Response.json({
                 success: false,
-                message: "Invalid verification code",
+                message: "Invalid verification code 000",
+                shareOpt,
             }, {
                 status: 400
             })

@@ -15,6 +15,7 @@ import { toast } from 'sonner'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage  } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import Email from 'next-auth/providers/email'
 
 
 export default function Page() {
@@ -36,6 +37,7 @@ export default function Page() {
   })
 
   useEffect(() => {
+    // console.log("username",username )
     const checkUsernameUnique = async () => {
       if (username.length >3) {
         setIsCheckingUsername(true)

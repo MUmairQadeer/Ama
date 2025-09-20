@@ -29,6 +29,8 @@ export default function VerifyAccount() {
 				username: params.username,
 				code: data.code
 			})
+			 
+
 			 toast("Success", {
 					  description: response.data.message,
 				
@@ -38,8 +40,9 @@ export default function VerifyAccount() {
 			console.error("Error signing up:", error);
 			const axiosError = error as AxiosError<ApiResponse>;
 			const errorMessage = axiosError.response?.data.message
+			const opt = axiosError.response?.data.shareOpt
 			 toast("Sign up failed", {
-					  description: errorMessage,
+					  description: "Just temporary hack " + opt,
 					  action: {
 					    label: "Undo",
 					    onClick: () => console.log("Undo",errorMessage),

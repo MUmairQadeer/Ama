@@ -10,11 +10,12 @@ export async function POST(request: Request) {
     await dbConnect();
     try {
         const { username, email, password } = await request.json();
-
+    //   console.log("username", username, "email", email, "password", password)
         const existingUserByUsername = await UserModel.findOne({
             username,
             isVerified: true
         })
+       
         if (existingUserByUsername) {
             return NextResponse.json({
                 success: false,
@@ -49,6 +50,7 @@ export async function POST(request: Request) {
         }
 
         else {
+               
             const hashedPassword = await bcryptjs.hash(password, 10);
             const newUser = new UserModel({
                 username,
