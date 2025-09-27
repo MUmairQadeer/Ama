@@ -18,7 +18,7 @@ export async function POST() {
     }
 
     const userId = new mongoose.Types.ObjectId(user._id);
-    console.log("userId",userId)
+    // console.log("userId",userId)
     try {
         const user = await UserModel.aggregate([
             { $match: { _id: userId } },
@@ -31,13 +31,13 @@ export async function POST() {
             {$group:{_id:'$_id',messages:{$push:'$messages'}}},
 
         ])
-        
+        // console.log("user",user[0]?.messages)
         if(!user || user.length === 0) {
-            return NextResponse.json({success: false, message: "User not found" }, { status: 404 });
+            return NextResponse.json({success: false, message: "No Message Yet" }, { status: 200 });
         }
         return NextResponse.json({  success: true, message: "Messages fetched successfully",messages:user[0].messages }, { status: 200 });
     } catch (error) {
-        console.log("Error fetching messages:", error);
+        // console.log("Error fetching messages:", error);
         return NextResponse.json({ message: "Error fetching messages" }, { status: 500 });
     } 
 }

@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     const {acceptMessages} = await request.json();
 
     try {
-        const updatedUser = await UserModel.findOneAndUpdate({ _id: userId }, { isAcceptingMessages: acceptMessages }, { new: true });
+        const updatedUser = await UserModel.findOneAndUpdate({ _id: userId }, { isAcceptingMessage: acceptMessages }, { new: true });
         if (!updatedUser) {
             return NextResponse.json({success: false, message: "User not found" }, { status: 404 });
         }
@@ -51,7 +51,7 @@ export async function GET() {
         }
         return NextResponse.json({
            success: true,
-           isAcceptingMessages: foundUser.isAcceptingMessage
+           isAcceptingMessage: foundUser.isAcceptingMessage
         }, { status: 200 });
     } catch (error) {
         console.error("Error getting message acceptance status:", error);

@@ -22,13 +22,14 @@ export default function Page() {
 
   const handleDeleteMessage = async (messageId: string) => { 
     
-    await axios.delete<ApiResponse>(`/api/delete-message?messageid=${messageId}`)
+    await axios.delete<ApiResponse>(`/api/delete-message/${messageId}`)
     setMessages(messages.filter((message) => message._id !== messageId));
 }
     const {data :session} =useSession()
 
     const form =useForm({
       resolver: zodResolver(acceptMesssageSchema),
+  
     })
 
     const {register ,watch ,setValue} =form;
@@ -39,7 +40,7 @@ export default function Page() {
       try {
         const response =await axios.get<ApiResponse>('/api/accept-message');
         setValue('acceptMessages', response.data.isAcceptingMessage ?? false);
-        // console.log(response,"response1");
+     
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
  
@@ -62,16 +63,10 @@ export default function Page() {
       setIsSwitchLoading(false)
       try {
         const response =await axios.post<ApiResponse>('/api/get-messages')
-        console.log(response.data.messages,"response2");
+        // console.log(response.data.messages,"response2");
         setMessages(response.data.messages || [])
         if(refresh){
-           toast("Refreshed Messages", {
-                      description: "Showing latest messages",
-                      action: {
-                        label: "ok",
-                        onClick: () => console.log("ok",),
-                      },
-                    })
+           toast(response.data.message);
         }
       } catch (error) {
          const axiosError = error as AxiosError<ApiResponse>;
@@ -98,23 +93,23 @@ export default function Page() {
   },[session ,setValue ,fetchAcceptMessage ,fetchMessages]);
 
   //handle switch change 
-  const handleSwitchChange =async (acceptMessages: boolean) => {
-   try {
-    const response = await axios.post<ApiResponse>('/api/accept-message', { 
-       acceptMessages: !acceptMessages });
-       setValue('acceptMessages', !acceptMessages);
-       toast(response.data.message, {
-                  description: response.data.message,
-                 
-                })
-   } catch (error) {
-      const axiosError = error as AxiosError<ApiResponse>;
-           toast("Error", {
-                  description: axiosError.response?.data.message ||"Failed to fetch message setting",
-                 
-                })
-   }
+const handleSwitchChange = async (checked: boolean) => {
+  try {
+    const response = await axios.post<ApiResponse>("/api/accept-message", {
+      acceptMessages: checked,
+    });
+    setValue("acceptMessages", checked);
+    toast(response.data.message);
+  } catch (error) {
+    const axiosError = error as AxiosError<ApiResponse>;
+    toast("Error", {
+      description:
+        axiosError.response?.data.message ||
+        "Failed to update message setting",
+    });
   }
+};
+
 
   const {username} =session?.user as User ?? {};
 
@@ -168,12 +163,12 @@ useEffect(() => {
         
         <Switch
           {...register('acceptMessages')}
-          // checked={acceptMessages}
+          checked={acceptMessages}
           onCheckedChange={handleSwitchChange}
           disabled={isSwitchLoading}
         /> 
          <span className="ml-2">
-          Accept Messages: {acceptMessages ? 'On' : 'Off'}
+          Accept Messages: {acceptMessages ? 'on' : 'off'}
         </span>
       </div>
       <Separator />

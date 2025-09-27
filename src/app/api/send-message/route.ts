@@ -10,6 +10,7 @@ const {username ,content} =await request.json();
     try {
         const user =await UserModel.findOne({username});
         if (!user) {
+            alert("user not found")
             return Response.json({
                 success: false,
                 message: "User not found",
@@ -21,13 +22,13 @@ const {username ,content} =await request.json();
 
         //is user accepting the messaages
 
-        if (!user.isAcceptingMessage) {
+        if (user.isAcceptingMessage == false) {
         
             return Response.json({
                 success: false,
-                message: "User is not acceptuing messages",
+                message: "User is not accepting messages",
             }, {
-                status: 403
+                status: 200
             })
         }
 

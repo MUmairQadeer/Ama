@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Loader2 } from 'lucide-react'
 import * as z from 'zod'
-import { Link } from '@react-email/components'
+import  Link  from 'next/link'
 import {useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
@@ -111,11 +111,11 @@ return (
         </form>
       </Form>
 
-      <div className="text-center mt-4">
-        <p>
+      <div className="text-center mt-4 flex justify-center flex-row w-full">
+        <p >
           Create an account ?{' '}
-          <Link href='/sign-up ' className='text-blue-600 hover:text-blue-800 cursor-pointer'>
-           { isSubmitting ?? <Loader2 className='animate-spin'/> } Sign up
+          <Link href='/sign-up' className='text-blue-600 hover:text-blue-800 cursor-pointer inline-flex items-center gap-2 '>
+           { isSubmitting ? (<Loader2 className='animate-spin' />):null } Sign up
           </Link>
         </p>
       </div>

@@ -11,6 +11,7 @@ import * as z from 'zod'
 import axios from 'axios'
 import { useParams } from 'next/navigation'
 import Chat from "../../../components/Chat"
+import { toast } from 'sonner'
 export default function Page() {
 
 
@@ -36,14 +37,19 @@ export default function Page() {
          username: params.username,
          content: data.Content
        })
-       console.log(response)
+      //  console.log(response)
      if(response?.data?.success){
        form.reset()
-       alert("Message sent")
+       alert("Message sent",)
      }
+     else{
+       toast(response.data.message)
+       form.reset()
+     }
+     
      setIsSubmitting(false)
    } catch (error) {
-    alert("Error while send message" ,)
+    alert("Error while sending message", )
     console.log(error)
    }
 

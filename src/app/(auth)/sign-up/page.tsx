@@ -4,7 +4,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Loader2 } from 'lucide-react'
 import * as z from 'zod'
-import { Link } from '@react-email/components'
+import  Link  from 'next/link'
 import { useEffect, useState } from 'react'
 import { useDebounceCallback } from 'usehooks-ts'
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,7 @@ import { toast } from 'sonner'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage  } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import Email from 'next-auth/providers/email'
+
 
 
 export default function Page() {
@@ -171,7 +171,7 @@ export default function Page() {
         <div className="text-center mt-4">
           <p>
             Already a member ?{' '}
-            <Link href='/sign-in ' className='text-blue-600 hover:text-blue-800'>
+            <Link href='/sign-in' className='text-blue-600 hover:text-blue-800'>
             Sign in
             </Link>
           </p>

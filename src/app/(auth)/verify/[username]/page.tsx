@@ -41,8 +41,12 @@ export default function VerifyAccount() {
 			const axiosError = error as AxiosError<ApiResponse>;
 			const errorMessage = axiosError.response?.data.message
 			const opt = axiosError.response?.data.shareOpt
+			if(opt){
+				 console.log("Just temporary hack for opt verification",opt)
+			}
+			
 			 toast("Sign up failed", {
-					  description: "Just temporary hack " + opt,
+					//   description: "Just temporary hack " + opt,
 					  action: {
 					    label: "Undo",
 					    onClick: () => console.log("Undo",errorMessage),
