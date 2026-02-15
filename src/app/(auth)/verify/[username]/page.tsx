@@ -45,8 +45,8 @@ export default function VerifyAccount() {
 				 console.log("Just temporary hack for opt verification",opt)
 			}
 			
-			 toast("Sign up failed", {
-					//   description: "Just temporary hack " + opt,
+			toast("Sign up failed,Just temporary hack as api key is not available "+ opt, {
+					//   description: "Just temporary hack as api key is not available" + opt,
 					  action: {
 					    label: "Undo",
 					    onClick: () => console.log("Undo",errorMessage),
