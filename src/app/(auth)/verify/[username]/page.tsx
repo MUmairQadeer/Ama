@@ -15,7 +15,7 @@ import * as z from 'zod'
 export default function VerifyAccount() {
 	const router = useRouter()
 	const params = useParams<{ username: string }>()
-	
+
 
 	const form = useForm<z.infer<typeof verifySchema>>({
 		resolver: zodResolver(verifySchema),
@@ -29,29 +29,24 @@ export default function VerifyAccount() {
 				username: params.username,
 				code: data.code
 			})
-			 
 
-			 toast("Success", {
-					  description: response.data.message,
-				
-					})
+
+			toast.success("Verification Successful", {
+				description: response.data.message,
+			})
 			router.replace('/dashboard')
 		} catch (error) {
 			console.error("Error signing up:", error);
 			const axiosError = error as AxiosError<ApiResponse>;
 			const errorMessage = axiosError.response?.data.message
 			const opt = axiosError.response?.data.shareOpt
-			if(opt){
-				 console.log("Just temporary hack for opt verification",opt)
+			if (opt) {
+				console.log("Just temporary hack for opt verification", opt)
 			}
-			
-			toast("Sign up failed,Just temporary hack as api key is not available "+ opt, {
-					//   description: "Just temporary hack as api key is not available" + opt,
-					  action: {
-					    label: "Undo",
-					    onClick: () => console.log("Undo",errorMessage),
-					  },
-					})
+
+			toast.error("Verification failed", {
+				description: errorMessage || "An error occurred during verification.",
+			})
 
 		}
 	}
@@ -69,31 +64,31 @@ export default function VerifyAccount() {
 
 
 				<Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+					<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
 
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Verification Code</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter Code" {...field}
-                     />
-                  </FormControl>
-            
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+						<FormField
+							control={form.control}
+							name="code"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Verification Code</FormLabel>
+									<FormControl>
+										<Input placeholder="Enter Code" {...field}
+										/>
+									</FormControl>
 
-            
-            <Button type="submit" >
-			  Verify
-            </Button>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 
-          </form>
-        </Form>
+
+						<Button type="submit" >
+							Verify
+						</Button>
+
+					</form>
+				</Form>
 			</div>
 		</div>
 	)

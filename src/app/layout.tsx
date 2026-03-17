@@ -27,13 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-        
-        <Toaster />
-      </body>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 flex flex-col antialiased`}
+        >
+          {children}
+
+          <Toaster richColors position="bottom-right" />
+        </body>
       </AuthProvider>
     </html>
   );

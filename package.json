@@ -13,6 +13,7 @@
     "@ai-sdk/openai": "^2.0.22",
     "@ai-sdk/react": "^2.0.25",
     "@google/genai": "^1.15.0",
+    "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-label": "^2.1.7",

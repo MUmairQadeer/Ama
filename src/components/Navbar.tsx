@@ -10,21 +10,34 @@ function Navbar() {
     const user: User = session?.user as User
 
     return (
-        <nav className='p-4 md:p-6 shadow-md bg-black text-white'>
-            <div className='container mx-auto flex  flex-col md:flex-row justify-between items-center'>
-
-                <a className='text-xl font-bold md-4 md:mb-0 '
-                    href="">Mystry Message</a>
-                {session ? (<><span className='mr-4'> Welcome, {user?.username || user?.email}</span>
-                    <Button className='w-full md:w-auto' onClick={() => signOut()}>
-                        Logout
-                    </Button>
-                </>
-                ) : (<Button asChild className='w-full md:w-auto bg-white text-black hover:bg-gray-100 pointer' >
-                    <Link href={'/sign-in'}>
-                        Login
-                    </Link></Button>
-                )}
+        <nav className='sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm'>
+            <div className='container mx-auto px-4 md:px-6 h-16 flex items-center justify-between'>
+                <a className='text-2xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent'
+                    href="">Mystery Message</a>
+                <div className='flex items-center space-x-4'>
+                    {session ? (
+                        <>
+                            <span className='hidden md:inline-block text-sm font-medium text-muted-foreground'>
+                                Welcome, <span className='text-foreground'>{user?.username || user?.email}</span>
+                            </span>
+                            <Button
+                                className='rounded-full px-6 shadow-sm hover:shadow-md transition-shadow'
+                                onClick={() => signOut()}
+                            >
+                                Logout
+                            </Button>
+                        </>
+                    ) : (
+                        <Button
+                            asChild
+                            className='rounded-full px-6 shadow-sm hover:shadow-md transition-shadow bg-primary text-primary-foreground pointer'
+                        >
+                            <Link href={'/sign-in'}>
+                                Login
+                            </Link>
+                        </Button>
+                    )}
+                </div>
             </div>
         </nav>
     )
